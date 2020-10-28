@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 const { argv } = require('yargs')
 
-
+const moveTypes = {
+    'rock' : 'paper',
+    'paper' : 'rock',
+    'scissors' : 'paper'
+}
 class Game {
     constructor(){
         this.playerMove = ''
         this.computerMove = ''
+        this.result = ''
     }
     addPlayer(player){
         if(player instanceof Computer){
@@ -14,25 +19,15 @@ class Game {
             this.playerMove = player.move
         }
     }
+    winner(){
+        return (this.playerMove === this.computerMove ? this.result = '~The game was a tie.~':(moveTypes[this.playerMove] === this.computerMove  ? this.result = '~Player wins.~' : this.result = '~Computer wins.~'))
+    }
     play(){
         console.log('Playing a game of Roshambo against the computer.')
         console.log(`Player plays ${this.playerMove}.`)
         console.log(`Computer plays ${this.computerMove}.`)
-       if(this.playerMove === 'rock' && this.computerMove === 'paper'){
-           console.log('~Computer Wins.~')
-       } else
-       if(this.playerMove === 'paper' && this.computerMove === 'scissors'){
-           console.log('~Computer Wins.~')
-       } else
-       if(this.playerMove === 'scissors' && this.computerMove === 'rock'){
-           console.log('~Computer Wins.~')
-       } else
-       if(this.playerMove === this.computerMove){
-           console.log('~it\'s a draw!~')
-       }
-       else {
-           console.log('~Player Wins.~')
-       }
+        this.winner()
+        console.log(this.result)
     }
 }
 
@@ -53,11 +48,11 @@ class Computer{
     }
 }
 
+
 const game1 = new Game();
 const player = new Player();
 const computer = new Computer();
 player.move = argv.move;
 game1.addPlayer(computer);
 game1.addPlayer(player);
-
 game1.play()
