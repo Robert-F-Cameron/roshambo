@@ -20,6 +20,7 @@ class Game {
         }
     }
     winner(){
+        //this is a really long ternary 
         return (this.playerMove === this.computerMove ? this.result = '~The game was a tie.~':(moveTypes[this.playerMove] === this.computerMove  ? this.result = '~Player wins.~' : this.result = '~Computer wins.~'))
     }
     play(){
